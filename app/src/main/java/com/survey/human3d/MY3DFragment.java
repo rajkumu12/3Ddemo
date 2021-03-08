@@ -5,12 +5,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+
+import com.survey.human3d.Interfaces.Pick;
 
 import org.rajawali3d.renderer.ISurfaceRenderer;
 import org.rajawali3d.renderer.Renderer;
@@ -127,6 +130,7 @@ public class MY3DFragment extends Fragment  implements IDisplay, View.OnClickLis
     protected boolean onTouchEvent(MotionEvent event) {
         return false;
     }
+
 
 
     protected abstract class AExampleRenderer extends Renderer {

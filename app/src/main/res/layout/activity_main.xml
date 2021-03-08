@@ -5,12 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/lly"
+    android:weightSum="1"
+    android:background="#FF3700B3"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="0.8"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/recyclerview_shirts"
+        android:layout_weight="0.2"/>
 
 
 </LinearLayout>
