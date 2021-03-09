@@ -29,8 +29,9 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
     Button mMoveRight;
     Button mMoveUp;
     private Vector3 mCameraOffset;
-
+    public static Object3D body,shirt;
     int texturesshirt;
+  public static   Material defaultmaterial;
 
     public GalaXyFragment(int imageshirt) {
         this.texturesshirt=imageshirt;
@@ -80,7 +81,7 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
     private final class FogRenderer extends AExampleRenderer implements OnObjectPickedListener, View.OnTouchListener{
         private DirectionalLight mLight;
         PointLight pointLight;
-        private Object3D body,shirt;
+
 
         public FogRenderer(Context context) {
             super(context);
@@ -90,7 +91,7 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
         @Override
         protected void initScene() {
             mLight = new DirectionalLight(0, -10, -10);
-            mLight.setPower(2f);
+            mLight.setPower(1.5f);
             getCurrentScene().addLight(mLight);
 
             int fogColor = 0xFF3700B3;
@@ -99,8 +100,8 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
             getCurrentScene().setBackgroundColor(fogColor);
 
 
-            LoaderOBJ objParser2 = new LoaderOBJ(mContext.getResources(),
-                    mTextureManager, R.raw.shhh);
+           LoaderOBJ objParser2 = new LoaderOBJ(mContext.getResources(),
+                    mTextureManager, R.raw.shirt_six);
             try {
                 objParser2.parse();
                 shirt = objParser2.getParsedObject();
@@ -120,13 +121,13 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
                     }
 
                 }
-              Material defaultmaterial = new Material();
+              defaultmaterial = new Material();
                 defaultmaterial.enableLighting(true);
                 defaultmaterial.setDiffuseMethod(new DiffuseMethod.Lambert());
                 defaultmaterial.addTexture(new Texture("de",texturesshirt));
                 Log.d("gfgfcgfgsgg",""+texturesshirt);
                defaultmaterial.setColorInfluence(0);
-                shirt.getChildByName("shirt1").setMaterial(defaultmaterial);
+                shirt.getChildByName("shirt").setMaterial(defaultmaterial);
                 shirt.setPosition(0,0,0);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -153,14 +154,99 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
 
                 }
 
+
+
+
+
+
+                /*Material r_hand = new Material();
+                r_hand.enableLighting(true);
+                r_hand.setDiffuseMethod(new DiffuseMethod.Lambert());
+                r_hand.addTexture(new Texture("de", R.drawable.skin));
+                r_hand.setColorInfluence(0);
+                body.getChildByName("r_hank").setMaterial(r_hand);
+                body.setPosition(0,0,0);
+
+
+                Material l_hand = new Material();
+                l_hand.enableLighting(true);
+                l_hand.setDiffuseMethod(new DiffuseMethod.Lambert());
+                l_hand.addTexture(new Texture("de", R.drawable.skin));
+                l_hand.setColorInfluence(0);
+                body.getChildByName("l_hand").setMaterial(l_hand);
+                body.setPosition(0,0,0);
+
+
+                Material def = new Material();
+                def.enableLighting(true);
+                def.setDiffuseMethod(new DiffuseMethod.Lambert());
+                def.addTexture(new Texture("de", R.drawable.skin));
+                def.setColorInfluence(0);
+                body.getChildByName("default").setMaterial(def);
+                body.setPosition(0,0,0);
+
+                Material facemath = new Material();
+                facemath.enableLighting(true);
+                facemath.setDiffuseMethod(new DiffuseMethod.Lambert());
+                facemath.addTexture(new Texture("de", R.drawable.skin));
+                facemath.setColorInfluence(0);
+                body.getChildByName("face").setMaterial(facemath);
+                body.setPosition(0,0,0);
+
+
+                Material chestmat = new Material();
+                chestmat.enableLighting(true);
+                chestmat.setDiffuseMethod(new DiffuseMethod.Lambert());
+                chestmat.addTexture(new Texture("de", R.drawable.skin));
+                chestmat.setColorInfluence(0);
+                body.getChildByName("chest").setMaterial(chestmat);
+                body.getChildByName("chest").setScale(body.getChildByName("chest").getScaleX()+1,body.getChildByName("chest").getScaleY()+1,body.getChildByName("chest").getScaleZ()+1);
+                Log.d("lllllllllll","vhest"+body.getChildByName("chest").getScale());
+
+
                 Material defaultmaterial = new Material();
                 defaultmaterial.enableLighting(true);
                 defaultmaterial.setDiffuseMethod(new DiffuseMethod.Lambert());
                 defaultmaterial.addTexture(new Texture("de", R.drawable.skin));
                 defaultmaterial.setColorInfluence(0);
-                body.getChildByName("body").setMaterial(defaultmaterial);
-                body.getChildByName("body").addChild(shirt);
+                body.getChildByName("r_L_bow").setMaterial(defaultmaterial);
+
+                Material stomach = new Material();
+                stomach.enableLighting(true);
+                stomach.setDiffuseMethod(new DiffuseMethod.Lambert());
+                stomach.addTexture(new Texture("de", R.drawable.skin));
+                stomach.setColorInfluence(0);
+                body.getChildByName("stomach").setMaterial(stomach);
                 body.setPosition(0,0,0);
+
+                Material ll_bow = new Material();
+                ll_bow.enableLighting(true);
+                ll_bow.setDiffuseMethod(new DiffuseMethod.Lambert());
+                ll_bow.addTexture(new Texture("de", R.drawable.skin));
+                ll_bow.setColorInfluence(0);
+                body.getChildByName("L_lbow").setMaterial(ll_bow);
+                body.setPosition(0,0,0);
+
+
+                Material L_shoulder = new Material();
+                L_shoulder.enableLighting(true);
+                L_shoulder.setDiffuseMethod(new DiffuseMethod.Lambert());
+                L_shoulder.addTexture(new Texture("de", R.drawable.skin));
+                L_shoulder.setColorInfluence(0);
+                body.getChildByName("L_shoulder").setMaterial(L_shoulder);
+                body.setPosition(0,0,0);*/
+
+                Material body1 = new Material();
+                body1.enableLighting(true);
+                body1.setDiffuseMethod(new DiffuseMethod.Lambert());
+                body1.addTexture(new Texture("de", R.drawable.skin));
+                body1.setColorInfluence(0);
+                body.getChildByName("body").setMaterial(body1);
+
+
+                /*body.getChildByName("body").addChild(shirt);*/
+                body.setPosition(0,0,0);
+                Log.d("kjfdkldjfkldf","fff"+body.getScale());
 
 
             } catch (Exception e) {
@@ -168,7 +254,7 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
             }
 
             ArcballCamera arcball = new ArcballCamera(mContext, ((Activity)mContext).findViewById(R.id.lly));
-            arcball.setTarget(shirt);
+            arcball.setTarget(body);
             arcball.setFieldOfView(30);
             arcball.moveForward(-50);
             arcball.setProjectionMatrix(700,800);

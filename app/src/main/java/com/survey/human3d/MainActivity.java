@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements Pick {
         arr=new ArrayList<>();
         arr.add(R.drawable.s_h);
         arr.add(R.drawable.s_t);
-        arr.add(R.drawable.s_th);
+        arr.add(R.drawable.sh);
         LoadData();
     }
 
@@ -52,9 +52,7 @@ public class MainActivity extends AppCompatActivity implements Pick {
                                 recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));*/
         recyclerView_list_shirts.setItemAnimator(new DefaultItemAnimator());
         recyclerView_list_shirts.setAdapter(topPicksAdapter);
-
         ShirtsModel shirtsModel=arraylist.get(0);
-
         loadFragment(new GalaXyFragment(shirtsModel.getImageshirt()));
     }
 
@@ -73,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements Pick {
 
     @Override
     public void onSucess(int position) {
-       ShirtsModel shirtsModel=arraylist.get(position);
+      /* ShirtsModel shirtsModel=arraylist.get(position);
         loadFragment(new GalaXyFragment(shirtsModel.getImageshirt()));
-        Log.d("kjlkdsajflkdjfldjflkdf","ro"+position);
+        Log.d("kjlkdsajflkdjfldjflkdf","ro"+position);*/
     }
 }
