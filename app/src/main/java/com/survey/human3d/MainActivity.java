@@ -8,6 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.survey.human3d.Adapters.ShirtsAdapters;
 import com.survey.human3d.Interfaces.Pick;
@@ -21,7 +25,14 @@ public class MainActivity extends AppCompatActivity implements Pick {
     List<ShirtsModel>arraylist;
     RecyclerView recyclerView_list_shirts;
     ArrayList<Integer>arr;
+    ArrayList<Integer>arr_ladies;
+    String[] gender = { "Male", "Female"};
+    String[] male = { "Chest", "Shoulder"};
+    String[] female = { "Breast", "Female"};
 
+    Spinner spnr_gender;
+    Spinner spnr_gender_type;
+    public static String gen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,20 +40,75 @@ public class MainActivity extends AppCompatActivity implements Pick {
         setContentView(R.layout.activity_main);
         recyclerView_list_shirts=findViewById(R.id.recyclerview_shirts);
 
+        spnr_gender=findViewById(R.id.spinner_gender);
+        spnr_gender_type=findViewById(R.id.spinner_genr_sbodyparts);
+
+        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,gender);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spnr_gender.setAdapter(aa);
+
 
 
         arr=new ArrayList<>();
         arr.add(R.drawable.s_h);
         arr.add(R.drawable.s_t);
         arr.add(R.drawable.sh);
-        LoadData();
+
+
+        arr_ladies=new ArrayList<>();
+        arr_ladies.add(R.drawable.one_l);
+        arr_ladies.add(R.drawable.two);
+
+        spnr_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                gen=gender[position];
+                if(gen.equals("Male")){
+                    LoadData(arr);
+                    ArrayAdapter aa = new ArrayAdapter(MainActivity.this,android.R.layout.simple_spinner_item,male);
+                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    //Setting the ArrayAdapter data on the Spinner
+                    spnr_gender_type.setAdapter(aa);
+                }else {
+                    LoadData(arr_ladies);
+                    ArrayAdapter aa = new ArrayAdapter(MainActivity.this,android.R.layout.simple_spinner_item,female);
+                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    //Setting the ArrayAdapter data on the Spinner
+                    spnr_gender_type.setAdapter(aa);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spnr_gender_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (gen.equals("Male")){
+                    Log.d("lfjhgkfsjgfkjg","ffffff"+male[position]);
+
+                }else {
+                    Log.d("lfjhgkfsjgfkjg","ffffff"+female[position]);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
-    private void LoadData() {
+    private void LoadData(ArrayList<Integer> arr) {
         arraylist=new ArrayList<>();
         for (int i=0;i<arr.size();i++){
             ShirtsModel shirtsModel=new ShirtsModel();
-            shirtsModel.setImageshirt(arr.get(i));
+            shirtsModel.setImageshirt(arr
+                    .get(i));
             arraylist.add(shirtsModel);
         }
         ShirtsAdapters topPicksAdapter = new ShirtsAdapters(MainActivity.this,arraylist,this);
@@ -75,4 +141,9 @@ public class MainActivity extends AppCompatActivity implements Pick {
         loadFragment(new GalaXyFragment(shirtsModel.getImageshirt()));
         Log.d("kjlkdsajflkdjfldjflkdf","ro"+position);*/
     }
+
+
+
+
+
 }

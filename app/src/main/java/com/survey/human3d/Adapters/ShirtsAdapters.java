@@ -39,19 +39,16 @@ public class ShirtsAdapters extends RecyclerView.Adapter<ShirtsAdapters.ViewHold
         this.arrayList = arrayList;
         this.cb = cb;
     }
-
     @NonNull
     @Override
     public ShirtsAdapters.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemsview_image, parent, false);
         return new ShirtsAdapters.ViewHolder(v);
     }
-
     @Override
     public void onBindViewHolder(@NonNull final ShirtsAdapters.ViewHolder holder, final int position) {
         ShirtsModel reportData = arrayList.get(position);
         holder.imageView.setImageResource(reportData.getImageshirt());
-
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +66,6 @@ public class ShirtsAdapters extends RecyclerView.Adapter<ShirtsAdapters.ViewHold
                     defaultmaterial.setColorInfluence(0);
 
                     shirt.getChildByName("shirt").setMaterial(defaultmaterial);
-                    shirt.setPosition(0, 0, 0);
                 } catch (ATexture.TextureException e) {
                     e.printStackTrace();
                 }
