@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.survey.human3d.Interfaces.BaseDelegates;
 import com.survey.human3d.Interfaces.Pick;
+import com.survey.human3d.MainActivity;
 import com.survey.human3d.Model.ShirtsModel;
 import com.survey.human3d.R;
 
@@ -27,7 +28,13 @@ import org.rajawali3d.materials.textures.Texture;
 import java.util.List;
 
 import static com.survey.human3d.GalaXyFragment.defaultmaterial;
+import static com.survey.human3d.GalaXyFragment.defaultmaterial_pant;
+import static com.survey.human3d.GalaXyFragment.defaultmaterial_shirt_g;
+import static com.survey.human3d.GalaXyFragment.girl_trouser;
+import static com.survey.human3d.GalaXyFragment.lady_pant;
+import static com.survey.human3d.GalaXyFragment.pants_boy;
 import static com.survey.human3d.GalaXyFragment.shirt;
+import static com.survey.human3d.GalaXyFragment.shirt_girl;
 
 public class ShirtsAdapters extends RecyclerView.Adapter<ShirtsAdapters.ViewHolder> {
     BaseDelegates cb;
@@ -53,22 +60,83 @@ public class ShirtsAdapters extends RecyclerView.Adapter<ShirtsAdapters.ViewHold
             @Override
             public void onClick(View v) {
                 /*((Pick) cb).onSucess(position);*/
-                for (ATexture texture : defaultmaterial.getTextureList()) {
-                    defaultmaterial.removeTexture(texture);
-                    shirt.getChildByName("shirt").getMaterial().removeTexture(texture);// Does not free GLES memory.
-                    // Frees GLES memory
-                    texture = null;                             // Does not free GLES memory.
-                }
-                Material defaultmaterial = new Material();
-                defaultmaterial.setDiffuseMethod(new DiffuseMethod.Lambert());
-                try {
-                    defaultmaterial.addTexture(new Texture("de", reportData.getImageshirt()));
-                    defaultmaterial.setColorInfluence(0);
 
-                    shirt.getChildByName("shirt").setMaterial(defaultmaterial);
-                } catch (ATexture.TextureException e) {
-                    e.printStackTrace();
+                if (MainActivity.gen.equals("Male")){
+                    if (reportData.getClothtype().equals("shirt")) {
+                        for (ATexture texture : defaultmaterial.getTextureList()) {
+                            defaultmaterial.removeTexture(texture);
+                            shirt.getChildByName("shirt").getMaterial().removeTexture(texture);// Does not free GLES memory.
+                            // Frees GLES memory
+                            texture = null;                             // Does not free GLES memory.
+                        }
+                        Material defaultmaterial = new Material();
+                        defaultmaterial.setDiffuseMethod(new DiffuseMethod.Lambert());
+                        try {
+                            defaultmaterial.addTexture(new Texture("de", reportData.getImageshirt()));
+                            defaultmaterial.setColorInfluence(0);
+
+                            shirt.getChildByName("shirt").setMaterial(defaultmaterial);
+                        } catch (ATexture.TextureException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        for (ATexture texture : defaultmaterial_pant.getTextureList()) {
+                            defaultmaterial_pant.removeTexture(texture);
+                            pants_boy.getChildByName("pant").getMaterial().removeTexture(texture);// Does not free GLES memory.
+                            // Frees GLES memory
+                            texture = null;                             // Does not free GLES memory.
+                        }
+                        Material defaultmaterial = new Material();
+                        defaultmaterial.setDiffuseMethod(new DiffuseMethod.Lambert());
+                        try {
+                            defaultmaterial.addTexture(new Texture("de", reportData.getImageshirt()));
+                            defaultmaterial.setColorInfluence(0);
+
+                            pants_boy.getChildByName("pant").setMaterial(defaultmaterial);
+                        } catch (ATexture.TextureException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }else {
+                    if (reportData.getClothtype().equals("shirt"))
+                    {
+                        for (ATexture texture : defaultmaterial_shirt_g.getTextureList()) {
+                            defaultmaterial_shirt_g.removeTexture(texture);
+                            shirt_girl.getChildByName("shirt").getMaterial().removeTexture(texture);// Does not free GLES memory.
+                            // Frees GLES memory
+                            texture = null;                             // Does not free GLES memory.
+                        }
+                        Material defaultmaterial = new Material();
+                        defaultmaterial.setDiffuseMethod(new DiffuseMethod.Lambert());
+                        try {
+                            defaultmaterial.addTexture(new Texture("de", reportData.getImageshirt()));
+                            defaultmaterial.setColorInfluence(0);
+
+                            shirt_girl.getChildByName("shirt").setMaterial(defaultmaterial);
+                        } catch (ATexture.TextureException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        for (ATexture texture : lady_pant.getTextureList()) {
+                            lady_pant.removeTexture(texture);
+                            girl_trouser.getChildByName("pant").getMaterial().removeTexture(texture);// Does not free GLES memory.
+                            // Frees GLES memory
+                            texture = null;                             // Does not free GLES memory.
+                        }
+                        Material defaultmaterial = new Material();
+                        defaultmaterial.setDiffuseMethod(new DiffuseMethod.Lambert());
+                        try {
+                            defaultmaterial.addTexture(new Texture("de", reportData.getImageshirt()));
+                            defaultmaterial.setColorInfluence(0);
+
+                            girl_trouser.getChildByName("pant").setMaterial(defaultmaterial);
+                        } catch (ATexture.TextureException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                 }
+
             }
         });
     }

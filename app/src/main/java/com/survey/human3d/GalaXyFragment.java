@@ -29,10 +29,12 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
     Button mMoveRight;
     Button mMoveUp;
     private Vector3 mCameraOffset;
-    public static Object3D body,shirt,legs_male,pants_boy,girl;
+    public static Object3D body,shirt,legs_male,pants_boy,girl,shirt_girl,girl_lowerpart,girl_trouser;
     int texturesshirt;
   public static   Material defaultmaterial;
+  public static   Material defaultmaterial_shirt_g;
   public static   Material defaultmaterial_pant;
+  public static   Material lady_pant;
 
     public GalaXyFragment(int imageshirt) {
         this.texturesshirt=imageshirt;
@@ -205,7 +207,7 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
                     legs_male.addChild(pants_boy);
                     legs_male.setScale(1.2,1,1);
 
-                    Log.d("kjfdkldjfkldf","fff"+body.getScale());
+
 
 
                 } catch (Exception e) {
@@ -265,8 +267,122 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
             }else {
                 Log.d("lkjdlskjkdlkjdjdjdjd","lol"+MainActivity.gen);
 
+
+                LoaderOBJ objParser_pant_fem = new LoaderOBJ(mContext.getResources(),
+                        mTextureManager, R.raw.girls_pant);
+                try {
+                    objParser_pant_fem.parse();
+                    girl_trouser = objParser_pant_fem.getParsedObject();
+
+                    girl_trouser.setZ(20);
+                    girl_trouser.setRotY(0);
+                    girl_trouser.setTransparent(false);
+
+                    // Log.d("hgfdkhfghkdgf","position"+shirt.getPosition()+"hwp"+shirt.getWorldPosition()+"Sce"+shirt.getScenePosition());
+                    getCurrentScene().addChild(girl_trouser);
+
+                    for (int i=0;i<girl_trouser.getNumChildren();i++){
+                        Log.d("jhdjsahfdkjha","jkf"+girl_trouser.getChildAt(i).getName());
+                        Log.d("jhdjsahfdkjha","jkf"+girl_trouser.getChildAt(i).getNumChildren());
+                        for (int j=0;j<girl_trouser.getChildAt(i).getNumChildren();j++){
+                            Log.d("jhdjsahfdkjha","jkm"+girl_trouser.getChildAt(i).getChildAt(j).getName());
+                        }
+                    }
+                   lady_pant= new Material();
+                    lady_pant.enableLighting(true);
+                    lady_pant.setDiffuseMethod(new DiffuseMethod.Lambert());
+                    lady_pant.addTexture(new Texture("de",R.drawable.girlpantstex));
+                    Log.d("gfgfcgfgsgg",""+texturesshirt);
+                    lady_pant.setColorInfluence(0);
+                    girl_trouser.getChildByName("pant").setMaterial(lady_pant);
+                    girl_trouser.setPosition(0,0,0);
+                    girl_trouser.setScale(1,1,1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
+                LoaderOBJ objParser_lowerfem = new LoaderOBJ(mContext.getResources(),
+                        mTextureManager, R.raw.lower_female);
+                try {
+                    objParser_lowerfem.parse();
+                    girl_lowerpart = objParser_lowerfem.getParsedObject();
+
+                    girl_lowerpart.setZ(20);
+                    girl_lowerpart.setRotY(0);
+                    girl_lowerpart.setTransparent(false);
+
+                    // Log.d("hgfdkhfghkdgf","position"+shirt.getPosition()+"hwp"+shirt.getWorldPosition()+"Sce"+shirt.getScenePosition());
+                    getCurrentScene().addChild(girl_lowerpart);
+
+                    for (int i=0;i<girl_lowerpart.getNumChildren();i++){
+                        Log.d("jhdjsahfdkjha","jkf"+girl_lowerpart.getChildAt(i).getName());
+                        Log.d("jhdjsahfdkjha","jkf"+girl_lowerpart.getChildAt(i).getNumChildren());
+                        for (int j=0;j<girl_lowerpart.getChildAt(i).getNumChildren();j++){
+                            Log.d("jhdjsahfdkjha","jkm"+girl_lowerpart.getChildAt(i).getChildAt(j).getName());
+                        }
+                    }
+                    Material lowerlady = new Material();
+                    lowerlady.enableLighting(true);
+                    lowerlady.setDiffuseMethod(new DiffuseMethod.Lambert());
+                    lowerlady.addTexture(new Texture("de",R.drawable.skin));
+                    Log.d("gfgfcgfgsgg",""+texturesshirt);
+                    lowerlady.setColorInfluence(0);
+                    girl_lowerpart.getChildByName("legs").setMaterial(lowerlady);
+                    girl_lowerpart.setPosition(0,-90,-2);
+                    girl_lowerpart.addChild(girl_trouser);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+
+
+
+
+
+
+
+                LoaderOBJ objParser_dress = new LoaderOBJ(mContext.getResources(),
+                        mTextureManager, R.raw.female_shirts);
+                try {
+                    objParser_dress.parse();
+                    shirt_girl = objParser_dress.getParsedObject();
+
+                    shirt_girl.setZ(20);
+                    shirt_girl.setRotY(0);
+                    shirt_girl.setTransparent(false);
+
+                   // Log.d("hgfdkhfghkdgf","position"+shirt.getPosition()+"hwp"+shirt.getWorldPosition()+"Sce"+shirt.getScenePosition());
+                    getCurrentScene().addChild(shirt_girl);
+
+                    for (int i=0;i<shirt_girl.getNumChildren();i++){
+                        Log.d("jhdjsahfdkjha","jkf"+shirt_girl.getChildAt(i).getName());
+                        Log.d("jhdjsahfdkjha","jkf"+shirt_girl.getChildAt(i).getNumChildren());
+                        for (int j=0;j<shirt_girl.getChildAt(i).getNumChildren();j++){
+                            Log.d("jhdjsahfdkjha","jkm"+shirt_girl.getChildAt(i).getChildAt(j).getName());
+                        }
+
+                    }
+                    defaultmaterial_shirt_g = new Material();
+                    defaultmaterial_shirt_g.enableLighting(true);
+                    defaultmaterial_shirt_g.setDiffuseMethod(new DiffuseMethod.Lambert());
+                    defaultmaterial_shirt_g.addTexture(new Texture("de",texturesshirt));
+                    Log.d("gfgfcgfgsgg",""+texturesshirt);
+                    defaultmaterial_shirt_g.setColorInfluence(0);
+                    shirt_girl.getChildByName("shirt").setMaterial(defaultmaterial_shirt_g);
+                    shirt_girl.setPosition(0,0,0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
                 LoaderOBJ objParser_girls = new LoaderOBJ(mContext.getResources(),
-                        mTextureManager, R.raw.girl_upper);
+                        mTextureManager, R.raw.gillllllllll);
                 try {
                     objParser_girls.parse();
                     girl = objParser_girls.getParsedObject();
@@ -285,78 +401,6 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
                             Log.d("jhdjsahfdkjha","jkm"+girl.getChildAt(i).getChildAt(j).getName());
                         }
                     }
-                   Material girlmat = new Material();
-                    girlmat.enableLighting(true);
-                    girlmat.setDiffuseMethod(new DiffuseMethod.Lambert());
-                    girlmat.addTexture(new Texture("de",R.drawable.skin));
-                    /*Log.d("gfgfcgfgsgg",""+texturesshirt);*/
-                    girlmat.setColorInfluence(0);
-                    girl.getChildByName("chest").setMaterial(girlmat);
-
-                    Material girlmat1 = new Material();
-                    girlmat1.enableLighting(true);
-                    girlmat1.setDiffuseMethod(new DiffuseMethod.Lambert());
-                    girlmat1.addTexture(new Texture("de",R.drawable.skin));
-                    /*Log.d("gfgfcgfgsgg",""+texturesshirt);*/
-                    girlmat1.setColorInfluence(0);
-                    girl.getChildByName("face").setMaterial(girlmat1);
-
-
-
-                    Material girlmat2 = new Material();
-                    girlmat2.enableLighting(true);
-                    girlmat2.setDiffuseMethod(new DiffuseMethod.Lambert());
-                    girlmat2.addTexture(new Texture("de",R.drawable.skin));
-                    /*Log.d("gfgfcgfgsgg",""+texturesshirt);*/
-                    girlmat2.setColorInfluence(0);
-                    girl.getChildByName("stomach").setMaterial(girlmat2);
-
-
-                    Material girlmat3 = new Material();
-                    girlmat3.enableLighting(true);
-                    girlmat3.setDiffuseMethod(new DiffuseMethod.Lambert());
-                    girlmat3.addTexture(new Texture("de",R.drawable.body_g_texture));
-                    /*Log.d("gfgfcgfgsgg",""+texturesshirt);*/
-                    girlmat3.setColorInfluence(0);
-                    girl.getChildByName("female_body").setMaterial(girlmat3);
-
-
-                    Material girlmat4 = new Material();
-                    girlmat4.enableLighting(true);
-                    girlmat4.setDiffuseMethod(new DiffuseMethod.Lambert());
-                    girlmat4.addTexture(new Texture("de",R.drawable.skin));
-                    /*Log.d("gfgfcgfgsgg",""+texturesshirt);*/
-                    girlmat4.setColorInfluence(0);
-                    girl.getChildByName("r_shoulder").setMaterial(girlmat4);
-
-
-                    Material girlmat5 = new Material();
-                    girlmat5.enableLighting(true);
-                    girlmat5.setDiffuseMethod(new DiffuseMethod.Lambert());
-                    girlmat5.addTexture(new Texture("de",R.drawable.skin));
-                    /*Log.d("gfgfcgfgsgg",""+texturesshirt);*/
-                    girlmat5.setColorInfluence(0);
-                    girl.getChildByName("l_shoulder").setMaterial(girlmat5);
-
-
-
-                    Material girlmat6 = new Material();
-                    girlmat6.enableLighting(true);
-                    girlmat6.setDiffuseMethod(new DiffuseMethod.Lambert());
-                    girlmat6.addTexture(new Texture("de",R.drawable.skin));
-                    /*Log.d("gfgfcgfgsgg",""+texturesshirt);*/
-                    girlmat6.setColorInfluence(0);
-                    girl.getChildByName("r_hand").setMaterial(girlmat6);
-
-
-                    Material girlmat7 = new Material();
-                    girlmat7.enableLighting(true);
-                    girlmat7.setDiffuseMethod(new DiffuseMethod.Lambert());
-                    girlmat7.addTexture(new Texture("de",R.drawable.skin));
-                    /*Log.d("gfgfcgfgsgg",""+texturesshirt);*/
-                    girlmat7.setColorInfluence(0);
-                    girl.getChildByName("r_hand").setMaterial(girlmat7);
-
 
 
                     Material girlmat8 = new Material();
@@ -365,9 +409,11 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
                     girlmat8.addTexture(new Texture("de",R.drawable.skin));
                     /*Log.d("gfgfcgfgsgg",""+texturesshirt);*/
                     girlmat8.setColorInfluence(0);
-                    girl.getChildByName("default").setMaterial(girlmat8);
+                    girl.getChildByName("female").setMaterial(girlmat8);
+                    girl.addChild(shirt_girl);
+                    girl.addChild(girl_lowerpart);
 
-                    girl.setPosition(1,1,1);
+                    girl.setPosition(0,4,4);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

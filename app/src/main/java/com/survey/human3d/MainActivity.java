@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements Pick {
     RecyclerView recyclerView_list_shirts;
     ArrayList<Integer>arr;
     ArrayList<Integer>arr_ladies;
+    ArrayList<String>typelit;
     String[] gender = { "Male", "Female"};
     String[] male = { "Chest", "Shoulder"};
     String[] female = { "Breast", "Female"};
@@ -49,16 +50,24 @@ public class MainActivity extends AppCompatActivity implements Pick {
         spnr_gender.setAdapter(aa);
 
 
+        typelit=new ArrayList<>();
+        typelit.add("shirt");
+        typelit.add("shirt");
+        typelit.add("shirt");
+        typelit.add("paint");
 
         arr=new ArrayList<>();
         arr.add(R.drawable.s_h);
         arr.add(R.drawable.s_t);
         arr.add(R.drawable.sh);
+        arr.add(R.drawable.painttexture);
 
 
         arr_ladies=new ArrayList<>();
         arr_ladies.add(R.drawable.one_l);
         arr_ladies.add(R.drawable.two);
+        arr_ladies.add(R.drawable.femaletex);
+        arr_ladies.add(R.drawable.girlpantstex);
 
         spnr_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -109,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements Pick {
             ShirtsModel shirtsModel=new ShirtsModel();
             shirtsModel.setImageshirt(arr
                     .get(i));
+            shirtsModel.setClothtype(typelit.get(i));
             arraylist.add(shirtsModel);
         }
         ShirtsAdapters topPicksAdapter = new ShirtsAdapters(MainActivity.this,arraylist,this);
