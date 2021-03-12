@@ -98,13 +98,9 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
             getCurrentScene().addLight(mLight);
 
             Log.d("kjdgglkfjlkjjj","okkk"+MainActivity.gen);
-            int fogColor = 0xFF3700B3;
-
+            int fogColor = 0xFFFFFF;
 
             getCurrentScene().setBackgroundColor(fogColor);
-
-
-
 
 
             if (MainActivity.gen.equals("Male")){
@@ -223,6 +219,7 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
                     body.setZ(-20);
                     body.setRotY(0);
 
+
                     Log.d("hgfdkhfghkdgf","position"+body.getPosition()+"hwp"+body.getWorldPosition()+"Sce"+body.getScenePosition());
                     getCurrentScene().addChild(body);
 
@@ -340,12 +337,6 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
 
 
 
-
-
-
-
-
-
                 LoaderOBJ objParser_dress = new LoaderOBJ(mContext.getResources(),
                         mTextureManager, R.raw.female_shirts);
                 try {
@@ -441,7 +432,6 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
             defaultmaterial.setColorInfluence(0);
             shirt.getChildByName("shirt1").setMaterial(defaultmaterial);
 
-
         }
 
         @Override
@@ -452,6 +442,7 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
         @Override
         public void onObjectPicked(Object3D object) {
 
+            Log.d(";kjfdfjkfjfjf","ol"+object.getName());
         }
     }
 

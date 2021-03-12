@@ -1,2 +1,4 @@
+include ':mylibrary'
+include ':draggableviewlib'
 include ':app'
 rootProject.name = "Human3D"

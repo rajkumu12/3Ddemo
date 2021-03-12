@@ -6,19 +6,29 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.DragEvent;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.survey.human3d.Adapters.ShirtsAdapters;
 import com.survey.human3d.Interfaces.Pick;
 import com.survey.human3d.Model.ShirtsModel;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements Pick {
 
@@ -28,12 +38,18 @@ public class MainActivity extends AppCompatActivity implements Pick {
     ArrayList<Integer>arr_ladies;
     ArrayList<String>typelit;
     String[] gender = { "Male", "Female"};
-    String[] male = { "Chest", "Shoulder"};
-    String[] female = { "Breast", "Female"};
+    String[] male = { "Height","Chest", "Shoulder","Hips","Weist"};
+    String[] female = {"Height","Weist", "Hips","Breast","Shoulder"};
 
     Spinner spnr_gender;
     Spinner spnr_gender_type;
+    ImageView aer_up,aero_down;
     public static String gen;
+    RelativeLayout r1,r2;
+
+    private Rect outRect = new Rect();
+    private int[] location = new int[2];
+    private boolean mIsScrolling = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +59,14 @@ public class MainActivity extends AppCompatActivity implements Pick {
 
         spnr_gender=findViewById(R.id.spinner_gender);
         spnr_gender_type=findViewById(R.id.spinner_genr_sbodyparts);
+        r1=findViewById(R.id.rel_root);
+        r2=findViewById(R.id.rel_root2);
+        r2.setOnTouchListener(new MoveViewTouchListener(r1));
 
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,gender);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spnr_gender.setAdapter(aa);
-
 
         typelit=new ArrayList<>();
         typelit.add("shirt");
@@ -122,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements Pick {
             arraylist.add(shirtsModel);
         }
         ShirtsAdapters topPicksAdapter = new ShirtsAdapters(MainActivity.this,arraylist,this);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL, true);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL, false);
         recyclerView_list_shirts.setLayoutManager(layoutManager2);
                             /*  int spacingInPixels = Objects.requireNonNull(getContext()).getResources().getDimensionPixelSize(R.dimen.spacing);
                                 recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));*/
@@ -155,5 +173,68 @@ public class MainActivity extends AppCompatActivity implements Pick {
 
 
 
+    public class MoveViewTouchListener implements View.OnTouchListener {
+        private GestureDetector mGestureDetector;
+        private View mView;
 
+        public MoveViewTouchListener(View view) {
+            mGestureDetector = new GestureDetector(view.getContext(), mGestureListener);
+            mView = view;
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+
+           /* if (event.getAction() == MotionEvent.ACTION_UP ) {
+                r1.setVisibility(View.GONE);
+
+                mIsScrolling = false;
+            }*/
+
+            if (mGestureDetector.onTouchEvent(event)) {
+                return true;
+            }
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (mIsScrolling) {
+                    mIsScrolling = false;
+
+                }
+            }
+            return false;
+        }
+
+        private GestureDetector.OnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
+            private float mMotionDownX, mMotionDownY;
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                mMotionDownX = e.getRawX() - mView.getTranslationX();
+                mMotionDownY = e.getRawY() - mView.getTranslationY();
+                return true;
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                mIsScrolling = true;
+
+                mView.setTranslationX(e2.getRawX() - mMotionDownX);
+                mView.setTranslationY(e2.getRawY() - mMotionDownY);
+                return true;
+            }
+        };
+    }
+
+    private boolean isViewInBounds(View view, int x, int y) {
+        view.getDrawingRect(outRect);
+        view.getLocationOnScreen(location);
+        outRect.offset(location[0], location[1]);
+        return outRect.contains(x, y);
+    }
 }
+
+
