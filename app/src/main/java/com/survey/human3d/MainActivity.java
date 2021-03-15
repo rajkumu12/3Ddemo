@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.survey.human3d.Adapters.ShirtsAdapters;
@@ -28,6 +29,12 @@ import com.survey.human3d.Model.ShirtsModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.survey.human3d.GalaXyFragment.body;
+import static com.survey.human3d.GalaXyFragment.girl;
+import static com.survey.human3d.GalaXyFragment.girl_lowerpart;
+import static com.survey.human3d.GalaXyFragment.legs_male;
+import static com.survey.human3d.GalaXyFragment.pants_boy;
 
 
 public class MainActivity extends AppCompatActivity implements Pick {
@@ -50,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements Pick {
     private Rect outRect = new Rect();
     private int[] location = new int[2];
     private boolean mIsScrolling = false;
+    TextView textView_done;
+    ImageView minus,plus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements Pick {
         spnr_gender_type=findViewById(R.id.spinner_genr_sbodyparts);
         r1=findViewById(R.id.rel_root);
         r2=findViewById(R.id.rel_root2);
+        minus=findViewById(R.id.img_minus);
+        plus=findViewById(R.id.img_plus);
         r2.setOnTouchListener(new MoveViewTouchListener(r1));
 
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,gender);
@@ -126,6 +137,42 @@ public class MainActivity extends AppCompatActivity implements Pick {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gen.equals("Male")){
+                  /*  for (int i=0;i<GalaXyFragment.legs_male.getNumChildren();i++){
+                        Log.d("lkjflkkkfffff","hhh"+GalaXyFragment.legs_male.getChildAt(i).getName());
+                    }*/
+                    legs_male.setScale(legs_male.getScaleX()+0.01, legs_male.getScaleY()+0, legs_male.getScaleZ()+0);
+                    body.setScale(body.getScaleX()+0.01, body.getScaleY()+0, body.getScaleZ()+0);
+                   /* pants_boy.setPosition(-12,1,5);*/
+                }else {
+                    girl.setScale(girl.getScaleX()+0.01, girl.getScaleY()+0, girl.getScaleZ()+0);
+                    girl_lowerpart.setScale(girl_lowerpart.getScaleX()+0.005, girl_lowerpart.getScaleY()+0, girl_lowerpart.getScaleZ()+0);
+                }
+            }
+        });
+
+
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gen.equals("Male")){
+                  /*  for (int i=0;i<GalaXyFragment.legs_male.getNumChildren();i++){
+                        Log.d("lkjflkkkfffff","hhh"+GalaXyFragment.legs_male.getChildAt(i).getName());
+                    }*/
+                    legs_male.setScale(legs_male.getScaleX()-0.01, legs_male.getScaleY()+0, legs_male.getScaleZ()+0);
+                    body.setScale(body.getScaleX()-0.01, body.getScaleY()+0, body.getScaleZ()+0);
+                    /* pants_boy.setPosition(-12,1,5);*/
+                }else {
+                    girl.setScale(girl.getScaleX()-0.01, girl.getScaleY()+0, girl.getScaleZ()+0);
+                    girl_lowerpart.setScale(girl_lowerpart.getScaleX()-0.005, girl_lowerpart.getScaleY()+0, girl_lowerpart.getScaleZ()+0);
+                }
             }
         });
     }
@@ -212,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements Pick {
                 mMotionDownY = e.getRawY() - mView.getTranslationY();
                 return true;
             }
-
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 return true;

@@ -166,7 +166,7 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
                     /* Log.d("gfgfcgfgsgg",""+texturesshirt);*/
                     defaultmaterial_pant.setColorInfluence(0);
                     pants_boy.getChildByName("pant").setMaterial(defaultmaterial_pant);
-                    pants_boy.setPosition(-12,1,5);
+                    pants_boy.setPosition(-11,1,5);
                     pants_boy.setScale(1,0.9,1.1);
                     /* pants_boy.setPosition(0,0,0);*/
                 } catch (Exception e) {
@@ -199,11 +199,9 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
                     legs_male.getChildByName("legs").setMaterial(leg_mat);
 
 
-                    legs_male.setPosition(15,-80,-24);
+                    legs_male.setPosition(15,-76,-24);
                     legs_male.addChild(pants_boy);
                     legs_male.setScale(1.2,1,1);
-
-
 
 
                 } catch (Exception e) {
@@ -247,7 +245,7 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
                 }
 
 
-
+                Log.d("kjlkjtlktjkltt","fffff"+pants_boy.getGeometry());
 
 
                 ArcballCamera arcball = new ArcballCamera(mContext, ((Activity)mContext).findViewById(R.id.lly));
@@ -408,6 +406,9 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+
+
                 ArcballCamera arcball = new ArcballCamera(mContext, ((Activity)mContext).findViewById(R.id.lly));
                 arcball.setTarget(girl);
                 arcball.setFieldOfView(30);
