@@ -169,7 +169,7 @@ public class GalaXyFragment extends MY3DFragment implements View.OnTouchListener
                     defaultmaterial_pant = new Material();
                     defaultmaterial_pant.enableLighting(true);
                     defaultmaterial_pant.setDiffuseMethod(new DiffuseMethod.Lambert());
-                    defaultmaterial_pant.addTexture(new Texture("de", R.drawable.denim));
+                    defaultmaterial_pant.addTexture(new Texture("de", R.drawable.dnm));
                     /* Log.d("gfgfcgfgsgg",""+texturesshirt);*/
                     defaultmaterial_pant.setColorInfluence(0);
                     pants_boy.getChildByName("pant").setMaterial(defaultmaterial_pant);
