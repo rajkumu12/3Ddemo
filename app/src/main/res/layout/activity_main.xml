@@ -99,6 +99,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/et_point"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
                 android:hint="0.1"
@@ -120,9 +121,7 @@
                 android:layout_height="40dp"
                 app:tint="@color/black" />
         </LinearLayout>
-
     </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_shirts"
         android:layout_width="match_parent"

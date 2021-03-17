@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements Pick {
     ImageView aer_up, aero_down;
     public static String gen;
     RelativeLayout r1, r2;
+    EditText et_points;
 
     private Rect outRect = new Rect();
     private int[] location = new int[2];
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements Pick {
         r2 = findViewById(R.id.rel_root2);
         minus = findViewById(R.id.img_minus);
         plus = findViewById(R.id.img_plus);
+        et_points = findViewById(R.id.et_point);
         r2.setOnTouchListener(new MoveViewTouchListener(r1));
 
         ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, gender);
@@ -130,9 +133,35 @@ public class MainActivity extends AppCompatActivity implements Pick {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (gen.equals("Male")) {
                     type_body = male[position];
+                    if (type_body.equals("Height")){
+                        if (body !=null){
+                            et_points.setText(String.valueOf(body.getScaleY()));
+                        }
+
+                    }else if (type_body.equals("Chest")){
+                        et_points.setText(String.valueOf(body.getScaleX()));
+                    }else if (type_body.equals("Hips")){
+                        et_points.setText(String.valueOf(legs_male.getScaleZ()));
+                    }else if (type_body.equals("Weist")){
+                        et_points.setText(String.valueOf(legs_male.getScaleX()));
+                    }
+
                     Log.d("lkjfzdjklfjkjhf", "hhh" + type_body);
                 } else {
                     type_body = female[position];
+
+                    if (type_body.equals("Height")){
+                        if (girl !=null){
+                            et_points.setText(String.valueOf(girl.getScaleY()));
+                        }
+
+                    }else if (type_body.equals("Weist")){
+                        et_points.setText(String.valueOf(girl_lowerpart.getScaleX()));
+                    }else if (type_body.equals("Hips")){
+                        et_points.setText(String.valueOf(girl_lowerpart.getScaleZ()));
+                    }else if (type_body.equals("Breast")){
+                        et_points.setText(String.valueOf(girl.getScaleZ()));
+                    }
                     Log.d("lkjfzdjklfjkjhf", "hhh" + type_body);
                 }
             }
@@ -149,17 +178,21 @@ public class MainActivity extends AppCompatActivity implements Pick {
             public void onClick(View v) {
                 if (gen.equals("Male")) {
                     if (type_body.equals("Height")) {
-                        body.setScale(body.getScaleX() + 0.001, body.getScaleY() + 0.002, body.getScaleZ() + 0);
-                        legs_male.setScale(legs_male.getScaleX() + 0.001, legs_male.getScaleY() + 0.001, legs_male.getScaleZ() + 0);
+                        body.setScale(body.getScaleX() + 0.001, body.getScaleY() + 0.02, body.getScaleZ() + 0);
+                        et_points.setText(String.valueOf(body.getScaleY()));
+                        legs_male.setScale(legs_male.getScaleX() + 0.01, legs_male.getScaleY() + 0.004, legs_male.getScaleZ() + 0);
                     } else if (type_body.equals("Chest")) {
-                        body.setScale(body.getScaleX() + 0.0015, body.getScaleY() + 0, body.getScaleZ() + 0.004);
-                        legs_male.setScale(legs_male.getScaleX() + 0.0015, legs_male.getScaleY() + 0, legs_male.getScaleZ() + 0.002);
+                        body.setScale(body.getScaleX() + 0.02, body.getScaleY() + 0, body.getScaleZ() + 0.005);
+                        et_points.setText(String.valueOf(body.getScaleX()));
+                        legs_male.setScale(legs_male.getScaleX() + 0.004, legs_male.getScaleY() + 0, legs_male.getScaleZ() + 0.002);
                     } else if (type_body.equals("Hips")) {
                         body.setScale(body.getScaleX() + 0.001, body.getScaleY() + 0, body.getScaleZ() + 0.004);
-                        legs_male.setScale(legs_male.getScaleX() + 0.001, legs_male.getScaleY() + 0, legs_male.getScaleZ() + 0.004);
+                        legs_male.setScale(legs_male.getScaleX() + 0.001, legs_male.getScaleY() + 0, legs_male.getScaleZ() + 0.015);
+                        et_points.setText(String.valueOf(legs_male.getScaleZ()));
                     } else if (type_body.equals("Weist")) {
                         body.setScale(body.getScaleX() + 0.002, body.getScaleY() + 0.000, body.getScaleZ() + 0.0015);
-                        legs_male.setScale(legs_male.getScaleX() + 0.002, legs_male.getScaleY() + 0.000, legs_male.getScaleZ() + 0.0015);
+                        legs_male.setScale(legs_male.getScaleX() + 0.015, legs_male.getScaleY() + 0.000, legs_male.getScaleZ() + 0.0015);
+                        et_points.setText(String.valueOf(legs_male.getScaleX()));
                     }
                   /*  for (int i=0;i<GalaXyFragment.legs_male.getNumChildren();i++){
                         Log.d("lkjflkkkfffff","hhh"+GalaXyFragment.legs_male.getChildAt(i).getName());
@@ -169,17 +202,21 @@ public class MainActivity extends AppCompatActivity implements Pick {
                     /* pants_boy.setPosition(-12,1,5);*/
                 } else {
                     if (type_body.equals("Height")) {
-                        girl.setScale(girl.getScaleX() + 0.001, girl.getScaleY() + 0.002, girl.getScaleZ() + 0);
-                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() + 0.001, girl_lowerpart.getScaleY() + 0.001, girl_lowerpart.getScaleZ() + 0);
+                        girl.setScale(girl.getScaleX() + 0.001, girl.getScaleY() + 0.02, girl.getScaleZ() + 0);
+                        et_points.setText(String.valueOf(girl.getScaleY()));
+                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() + 0.01, girl_lowerpart.getScaleY() + 0.004, girl_lowerpart.getScaleZ() + 0);
                     } else if (type_body.equals("Weist")) {
                         girl.setScale(girl.getScaleX() + 0.002, girl.getScaleY() + 0.000, girl.getScaleZ() + 0.0015);
                         girl_lowerpart.setScale(girl_lowerpart.getScaleX() + 0.002, girl_lowerpart.getScaleY() + 0.000, girl_lowerpart.getScaleZ() + 0.0015);
+                        et_points.setText(String.valueOf(girl_lowerpart.getScaleX()));
                     } else if (type_body.equals("Hips")) {
                         girl.setScale(girl.getScaleX() + 0.001, girl.getScaleY() + 0, girl.getScaleZ() + 0.004);
-                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() + 0.001, girl_lowerpart.getScaleY() + 0, girl_lowerpart.getScaleZ() + 0.004);
+                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() + 0.001, girl_lowerpart.getScaleY() + 0, girl_lowerpart.getScaleZ() + 0.02);
+                        et_points.setText(String.valueOf(girl_lowerpart.getScaleZ()));
                     } else if (type_body.equals("Breast")) {
-                        girl.setScale(girl.getScaleX() + 0.0015, girl.getScaleY() + 0, girl.getScaleZ() + 0.004);
-                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() + 0.0015, girl_lowerpart.getScaleY() + 0, girl_lowerpart.getScaleZ() + 0.001);
+                        girl.setScale(girl.getScaleX() + 0.0015, girl.getScaleY() + 0, girl.getScaleZ() + 0.02);
+                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() + 0.0015, girl_lowerpart.getScaleY() + 0, girl_lowerpart.getScaleZ() + 0.004);
+                        et_points.setText(String.valueOf(girl.getScaleZ()));
                     }/*else if (type_body.equals("Shoulder")){
                         girl.setScale(girl.getScaleX()+0.001, girl.getScaleY()+0.002, girl.getScaleZ()+0);
                         girl_lowerpart.setScale(girl_lowerpart.getScaleX()+0.001, girl_lowerpart.getScaleY()+0.001, girl_lowerpart.getScaleZ()+0);
@@ -197,17 +234,21 @@ public class MainActivity extends AppCompatActivity implements Pick {
             public void onClick(View v) {
                 if (gen.equals("Male")) {
                     if (type_body.equals("Height")) {
-                        body.setScale(body.getScaleX() - 0.001, body.getScaleY() - 0.002, body.getScaleZ() - 0);
-                        legs_male.setScale(legs_male.getScaleX() - 0.001, legs_male.getScaleY() - 0.001, legs_male.getScaleZ() - 0);
+                        body.setScale(body.getScaleX()- 0.001, body.getScaleY() - 0.02, body.getScaleZ() - 0);
+                        et_points.setText(String.valueOf(body.getScaleY()));
+                        legs_male.setScale(legs_male.getScaleX() - 0.01, legs_male.getScaleY() - 0.004, legs_male.getScaleZ() - 0);
                     } else if (type_body.equals("Chest")) {
-                        body.setScale(body.getScaleX() - 0.0015, body.getScaleY() - 0, body.getScaleZ() - 0.004);
-                        legs_male.setScale(legs_male.getScaleX() - 0.0015, legs_male.getScaleY() - 0, legs_male.getScaleZ() - 0.002);
+                        body.setScale(body.getScaleX() - 0.02, body.getScaleY() - 0, body.getScaleZ() - 0.005);
+                        et_points.setText(String.valueOf(body.getScaleX()));
+                        legs_male.setScale(legs_male.getScaleX() - 0.004, legs_male.getScaleY() - 0, legs_male.getScaleZ() - 0.002);
                     } else if (type_body.equals("Hips")) {
                         body.setScale(body.getScaleX() - 0.001, body.getScaleY() - 0, body.getScaleZ() - 0.004);
-                        legs_male.setScale(legs_male.getScaleX() - 0.001, legs_male.getScaleY() - 0, legs_male.getScaleZ() - 0.004);
+                        legs_male.setScale(legs_male.getScaleX() - 0.001, legs_male.getScaleY() - 0, legs_male.getScaleZ() - 0.015);
+                        et_points.setText(String.valueOf(legs_male.getScaleZ()));
                     } else if (type_body.equals("Weist")) {
                         body.setScale(body.getScaleX() - 0.002, body.getScaleY() - 0.000, body.getScaleZ() - 0.0015);
-                        legs_male.setScale(legs_male.getScaleX() - 0.002, legs_male.getScaleY() - 0.000, legs_male.getScaleZ() - 0.0015);
+                        legs_male.setScale(girl_lowerpart.getScaleX() - 0.0015, girl_lowerpart.getScaleY() - 0, girl_lowerpart.getScaleZ() - 0.004);
+                        et_points.setText(String.valueOf(legs_male.getScaleX()));
                     }
                   /*  for (int i=0;i<GalaXyFragment.legs_male.getNumChildren();i++){
                         Log.d("lkjflkkkfffff","hhh"+GalaXyFragment.legs_male.getChildAt(i).getName());
@@ -217,17 +258,21 @@ public class MainActivity extends AppCompatActivity implements Pick {
                     /* pants_boy.setPosition(-12,1,5);*/
                 } else {
                     if (type_body.equals("Height")) {
-                        girl.setScale(girl.getScaleX() - 0.001, girl.getScaleY() - 0.002, girl.getScaleZ() - 0);
-                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() - 0.001, girl_lowerpart.getScaleY() - 0.001, girl_lowerpart.getScaleZ() - 0);
+                        girl.setScale(girl.getScaleX() - 0.001, girl.getScaleY() - 0.02, girl.getScaleZ() - 0);
+                        et_points.setText(String.valueOf(girl.getScaleY()));
+                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() - 0.01, girl_lowerpart.getScaleY() - 0.004, girl_lowerpart.getScaleZ() - 0);
                     } else if (type_body.equals("Weist")) {
                         girl.setScale(girl.getScaleX() - 0.002, girl.getScaleY() - 0.000, girl.getScaleZ() - 0.0015);
                         girl_lowerpart.setScale(girl_lowerpart.getScaleX() - 0.002, girl_lowerpart.getScaleY() - 0.000, girl_lowerpart.getScaleZ() - 0.0015);
+                        et_points.setText(String.valueOf(girl_lowerpart.getScaleX()));
                     } else if (type_body.equals("Hips")) {
                         girl.setScale(girl.getScaleX() - 0.001, girl.getScaleY() - 0, girl.getScaleZ() - 0.004);
-                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() - 0.001, girl_lowerpart.getScaleY() - 0, girl_lowerpart.getScaleZ() - 0.004);
+                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() - 0.001, girl_lowerpart.getScaleY() - 0, girl_lowerpart.getScaleZ() - 0.02);
+                        et_points.setText(String.valueOf(girl_lowerpart.getScaleZ()));
                     } else if (type_body.equals("Breast")) {
-                        girl.setScale(girl.getScaleX() - 0.001, girl.getScaleY() - 0, girl.getScaleZ() - 0.004);
-                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() - 0.001, girl_lowerpart.getScaleY() - 0, girl_lowerpart.getScaleZ() - 0.001);
+                        girl.setScale(girl.getScaleX() - 0.0015, girl.getScaleY() - 0, girl.getScaleZ() - 0.02);
+                        girl_lowerpart.setScale(girl_lowerpart.getScaleX() - 0.0015, girl_lowerpart.getScaleY() - 0, girl_lowerpart.getScaleZ() - 0.004);
+                        et_points.setText(String.valueOf(girl.getScaleZ()));
                     }
 
                     /*girl.setScale(girl.getScaleX()-0.01, girl.getScaleY()+0, girl.getScaleZ()+0);
